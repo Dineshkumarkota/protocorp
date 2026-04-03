@@ -5,30 +5,30 @@ function FileUpload({ setUrls, setCurrentIndex }) {
   const [loading, setLoading] = useState(false);
   const [sheetUrl, setSheetUrl] = useState("");
 
- const handleSheetSubmit = async () => {
-  if (!sheetUrl.trim()) {
-    alert("Please enter a Google Sheet URL");
-    return;
-  }
+  const handleSheetSubmit = async () => {
+    if (!sheetUrl.trim()) {
+      alert("Please enter a Google Sheet URL");
+      return;
+    }
 
-  if (!sheetUrl.includes("docs.google.com")) {
-    alert("Enter a valid Google Sheet link");
-    return;
-  }
+    if (!sheetUrl.includes("docs.google.com")) {
+      alert("Enter a valid Google Sheet link");
+      return;
+    }
 
-  try {
-    const res = await axios.post(
-      "https://protocorp.onrender.com/api/upload",
-      { sheetUrl }
-    );
+    try {
+      const res = await axios.post(
+        "https://protocorp.onrender.com/api/upload-URL",
+        { sheetUrl },
+      );
 
-    setUrls(res.data.urls);
-    setCurrentIndex(0);
-  } catch (err) {
-    console.log(err);
-    alert("Invalid sheet URL or no URLs found");
-  }
-};
+      setUrls(res.data.urls);
+      setCurrentIndex(0);
+    } catch (err) {
+      console.log(err);
+      alert("Invalid sheet URL or no URLs found");
+    }
+  };
 
   // File upload handler
   const handleUpload = async (e) => {
@@ -47,8 +47,13 @@ function FileUpload({ setUrls, setCurrentIndex }) {
       setLoading(true);
 
       const res = await axios.post(
-       "https://protocorp.onrender.com/api/upload",
-        formData
+        "https://protocorp.onrender.com/api/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
       );
 
       setUrls(res.data.urls);
@@ -63,7 +68,6 @@ function FileUpload({ setUrls, setCurrentIndex }) {
 
   return (
     <div className="w-full max-w-3xl flex flex-col gap-4">
-
       {/* Upload Box */}
       <label className="w-full cursor-pointer bg-gray-800 text-white border border-gray-600 rounded-lg p-4 text-center hover:bg-gray-700 transition">
         📁 Click to upload Excel / CSV
@@ -93,7 +97,6 @@ function FileUpload({ setUrls, setCurrentIndex }) {
           Load
         </button>
       </div>
-
     </div>
   );
 }
