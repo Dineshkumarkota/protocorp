@@ -47,7 +47,7 @@ function FileUpload({ setUrls, setCurrentIndex }) {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/upload",
+       "https://protocorp.onrender.com/api/upload",
         formData
       );
 
