@@ -13,6 +13,10 @@ const isValidUrl = (url) => {
 exports.handleFileUpload = (req, res) => {
     try {
         const filePath = req.file.path;
+        console.log("FILE:", req.file); // 🔥 debug
+        if (!req.file) {
+            return res.status(400).json({ error: "No file received" });
+        }
 
         const workbook = xlsx.readFile(filePath);
         const sheetName = workbook.SheetNames[0];
