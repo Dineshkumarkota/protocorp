@@ -3,8 +3,9 @@ const multer = require("multer");
 const { handleFileUpload } = require("../controllers/uploadController");
 
 const router = express.Router();
-router.post("/upload", upload.single("file"), handleFileUpload);
+
 const upload = multer({ dest: "uploads/" });
+router.post("/upload", upload.single("file"), handleFileUpload);
 
 router.post("/upload-url", async (req, res) => {
   try {
