@@ -18,7 +18,7 @@ function FileUpload({ setUrls, setCurrentIndex }) {
 
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/upload-url",
+      "https://protocorp.onrender.com/api/upload",
       { sheetUrl }
     );
 
