@@ -49,11 +49,6 @@ function FileUpload({ setUrls, setCurrentIndex }) {
       const res = await axios.post(
         "https://protocorp.onrender.com/api/upload",
         formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
       );
 
       setUrls(res.data.urls);
