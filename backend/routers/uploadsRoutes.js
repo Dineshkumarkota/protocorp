@@ -6,7 +6,7 @@ const router = express.Router();
 
 const upload = multer({ dest: "uploads/" });
 
-router.post("/upload-url", async (req, res) => {
+router.post("/upload", async (req, res) => {
   try {
     const { sheetUrl } = req.body;
 
