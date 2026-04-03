@@ -15,11 +15,16 @@ function FileUpload({ setUrls, setCurrentIndex }) {
       alert("Enter a valid Google Sheet link");
       return;
     }
+    let finalUrl = sheetUrl;
+
+    if (sheetUrl.includes("/edit")) {
+      finalUrl = sheetUrl.replace(/\/edit.*$/, "/export?format=csv");
+    }
 
     try {
       const res = await axios.post(
         "https://protocorp.onrender.com/api/upload-url",
-        { sheetUrl },
+        { sheetUrl:finalUrl },
       );
 
       setUrls(res.data.urls);
